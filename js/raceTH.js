@@ -73,33 +73,58 @@
       } else {
         lineout(this.name + " " + sAction + " at " + this.position + " yards.");
       }
-    }
+    };
 
   }
 
   // TODO: could ask user for these properties
-  var rabbit = new Animal("Bugs",5, 2, document.getElementById("IDrabbit"));
-  var turtle = new Animal("Michaelangelo",1,10, document.getElementById("IDturtle"));
+  var rabbit;
+  var turtle;
+  var distance;
+  var graphical;
 
 
-  var distance = getNumber("How many yards is the race?");
-  var graphical = yes(prompt("Would you like to see a graphical race?"));
+  function playGame() {
+    alert("in playGame");
+    var rn = document.getElementById("rabbitname").value;
+    var rs = document.getElementById("rabbitspeed").value;
+    var rf = document.getElementById("rabbitfocus").value;
+    var ri = document.getElementById("rabbit_image");
 
-  do {
-    rabbit.move();
-    turtle.move();
-  } while((rabbit.position < distance) && (turtle.position < distance));
+    var tn = document.getElementById("turtlename").value;
+    var ts = document.getElementById("turtlespeed").value;
+    var tf = document.getElementById("turtlefocus").value;
+    var ti = document.getElementById("turtle_image");
 
-  if(rabbit.position >= distance) {
+    alert(rn + " " + rs + " " + rf);
+    alert(tn + " " + ts + " " + tf);
 
-    if(turtle.position >= distance) {
-      lineout("It's too close to call!!");
+
+    rabbit = new Animal(rn, rs, rf, ri);
+    turtle = new Animal(tn, ts, tf, ti);
+
+
+    distance = getNumber("How many yards is the race?");
+    graphical = yes(prompt("Would you like to see a graphical race?"));
+
+
+    do {
+      rabbit.move();
+      turtle.move();
+    } while((rabbit.position < distance) && (turtle.position < distance));
+
+    if(rabbit.position >= distance) {
+
+      if(turtle.position >= distance) {
+        lineout("It's too close to call!!");
+      } else {
+        lineout(rabbit.name + " wins!!!");
+      }
+
     } else {
-      lineout(rabbit.name + " wins!!!");
+      lineout(turtle.name + " wins!!!");
     }
 
-  } else {
-    lineout(turtle.name + " wins!!!");
   }
 
 

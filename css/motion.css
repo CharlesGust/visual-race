@@ -1,11 +1,40 @@
-#IDrabbit {
-  float: right;
-  display: block;
-  position: absolute;
+body {
+  background-color: green;
 }
 
-#IDturtle {
-  float: right;
+form {
   display: block;
-  position: absolute;
+  width: 50%;
+  height: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: white;
+  margin-top: 40px;
+  padding-top: 30px;
 }
+
+
+#rabbitInput { 
+  margin-left: 2%;
+}
+
+#turtleInput {
+  margin-top: 80px;
+  margin-left: 2%;
+}
+
+#rabbit_image {
+  float: left;
+}
+
+#turtle_image {
+  float: left;
+}
+
+ul {
+  list-style-type: none;
+}
+
+
+
+

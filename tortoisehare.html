@@ -4,15 +4,35 @@
   <head>
     <title>Classic Tortoise Hare Race</title>
     <link href="css/motion.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="js/raceTH.js"></script>
   </head>
   <body>
-      <div><img src="images/rabbit.jpg" height="100" id="IDrabbit" />
-      </div>
-      <p></p>
-      <div><img src="images/turtle.jpg" height="100" id="IDturtle" />
-      </div>
-      <p></p>
-
-    <script src="js/raceTH.js">    </script>
+      
+      
+      <form class="setup">
+        <div id="rabbit_input">
+          <img id="rabbit_image" class="racers" src="images/rabbit.jpg" height="100" />
+          <ul>
+            <li><input id="rabbitname" type="text" value="name" placeholder="name"></li>
+            <li><input id="rabbitspeed" type="number" value="speed" placeholder="speed"></li>
+            <li><input id="rabbitfocus" type="number" value="focus" placeholder="focus"></li>
+          </ul>
+        </div>
+         <div id="turtleInput">
+          <img id="turtle_image" class="racers" src="images/turtle.jpg" height="100" />
+          <ul>
+            <li><input id="turtlename" type="text" placeholder="name"></li>
+            <li><input id="turtlespeed" type="number" placeholder="speed"></li>
+            <li><input id="turtlefocus" type="number" placeholder="focus"></li>
+          </ul>
+        </div>
+        <button onclick="playGame();">Play Game!</button>
+      </form>
+    
+    </script>
   </body>
 </html>
+
+
+
+ 
