@@ -1,39 +1,126 @@
 body {
-  background-color: green;
+  background-color: #4bff00;
 }
 
-form {
+#form1 {
   display: block;
   width: 50%;
   height: 400px;
   margin-right: auto;
   margin-left: auto;
-  background-color: white;
-  margin-top: 40px;
-  padding-top: 30px;
+  background-color: #c000ff;
+  margin-top: 100px;
+  padding: 50px 0 50px 0;
+
+}
+
+#setup_rabbit {
+  margin-top: -140px;
+  height: 40%;
+  width: 40%;
+  z-index: -200;
 }
 
 
-#rabbitInput { 
-  margin-left: 2%;
+#game_rabbit {
+  
+  margin-left: 0px;
+  width: 10%;
+  height: 10%; 
+
 }
 
-#turtleInput {
-  margin-top: 80px;
-  margin-left: 2%;
+#game_turtle {
+  margin-left: 0%;
+  width: 10%;
+  height: 10%; 
+  
 }
 
-#rabbit_image {
-  float: left;
-}
+#setup_turtle {
 
-#turtle_image {
-  float: left;
+
 }
 
 ul {
   list-style-type: none;
 }
+
+ul li {
+  margin-top: 5px; 
+}
+
+input {
+  width: 70%;
+  height: 30px;
+  font-size: .8em;
+  text-align: center;
+  background-color: white;
+  border: 0;
+  margin-left: 11%;
+  font-family: 'Lato', sans-serif;
+}
+
+
+#rabbit_input {
+  margin-top: 20px;
+  
+
+}
+
+#turtle_input {
+  margin-top: 50px;
+  display: none;
+
+}
+
+#contestant {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: red;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  
+ 
+}
+
+#circle_text {
+  font-size: 1.2em;
+  text-align: center;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+#button1 {
+  font-size: 1.2em;
+  color: #383838;
+  width: 50%;
+  margin-top: 55px;
+  margin-left: 25%;
+  display: block;
+  height: 40px;
+  background-color: #00f3ff;
+  border: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+#button1 a {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+}
+
+#button1:hover {
+  background-color: rgba(0, 243, 255, 0.9);
+}
+
+
+
+
 
 
 
