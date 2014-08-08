@@ -45,13 +45,19 @@
     return sReturn;
   }
 
-
-  function Animal(name, speed, focus, selector) {
+  
+  function Animal(name, speed, focus) {
     this.name = name;
     this.speed = speed;
     this.focus = focus;
-    this.selector = selector;
     this.position = 0;
+    this.image_selector = null;
+
+    this.image = function(image_selector) {
+      this.image_selector = image_selector;
+    };
+
+    
 
     // Here, move refers to a game move. The animal may or may not change position
     // The move function also reports the result of the game move
@@ -60,8 +66,9 @@
     this.move = function() {
       var sAction;
 
-      if( Math.random() * 10 < this.focus) {
-        this.position += this.speed;
+       if( Math.random() * 10 < this.focus) {
+        this.position += toNumber(this.speed);
+        
 
         sAction = "runs " + addplurals(this.speed,"yard") + " and is now";
       } else {
@@ -69,13 +76,15 @@
       }
 
       if( graphical ) {
-        this.selector.style.clientLeft = this.position;
+        this.image_selector.style.marginLeft = this.position + "%";
+        alert(this.position);
       } else {
         lineout(this.name + " " + sAction + " at " + this.position + " yards.");
       }
     };
 
   }
+
 
   // TODO: could ask user for these properties
   var rabbit;
@@ -85,29 +94,14 @@
 
 
   function playGame() {
-    alert("in playGame");
-    var rn = document.getElementById("rabbitname").value;
-    var rs = document.getElementById("rabbitspeed").value;
-    var rf = document.getElementById("rabbitfocus").value;
-    var ri = document.getElementById("rabbit_image");
+   
 
-    var tn = document.getElementById("turtlename").value;
-    var ts = document.getElementById("turtlespeed").value;
-    var tf = document.getElementById("turtlefocus").value;
     var ti = document.getElementById("turtle_image");
+    alert(ti.style.marginLeft);
+    turtle.image(ti);
+    rabbit.image(document.getElementById("rabbit_image"));
 
-    alert(rn + " " + rs + " " + rf);
-    alert(tn + " " + ts + " " + tf);
-
-
-    rabbit = new Animal(rn, rs, rf, ri);
-    turtle = new Animal(tn, ts, tf, ti);
-
-
-    distance = getNumber("How many yards is the race?");
-    graphical = yes(prompt("Would you like to see a graphical race?"));
-
-
+    
     do {
       rabbit.move();
       turtle.move();
@@ -126,5 +120,86 @@
     }
 
   }
+
+  function constructAnimals() {
+
+    alert("constructAnimals");
+
+    
+    var rn = document.getElementById("rabbitname").value;
+    var rs = document.getElementById("rabbitspeed").value;
+    var rf = document.getElementById("rabbitfocus").value;
+  
+    var tn = document.getElementById("turtlename").value;
+    var ts = document.getElementById("turtlespeed").value;
+    var tf = document.getElementById("turtlefocus").value;
+    
+    rabbit = new Animal(rn, rs, rf);
+    alert(rn);
+    turtle = new Animal(tn, ts, tf);
+
+  }
+
+  function destructSetup() {
+    
+    var setup_list = document.getElementsByClassName("game_setup");
+
+    while(setup_list[0]) {
+      alert("removing: " + setup_list[0]);
+      setup_list[0].parentNode.removeChild(setup_list[0]);
+
+    
+    }
+    
+  }
+
+  function setupGame() {
+
+    var elRabbit = document.getElementById("rabbitname");
+    //alert("in setupGame");
+    
+    elRabbit.onchange = function() {
+      var rn = elRabbit.value;
+      document.getElementById("rabbitspeed").placeholder = 'How Fast Does ' + rn + ' Hop?';
+      document.getElementById("rabbitfocus").placeholder = 'Is ' + rn + ' Easily Distracted?';
+    };
+
+    var elButton = document.getElementById("button1");
+    elButton.onclick = function() {
+      constructAnimals();
+      destructSetup();
+      playGame();
+    };
+
+    distance = 80; //getNumber("How many yards is the race?");
+    graphical = true; //(prompt("Would you like to see a graphical race?"));
+
+  }
+
+  window.onload = function() {
+
+    setupGame();
+  };
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+ 
+
+
 
 

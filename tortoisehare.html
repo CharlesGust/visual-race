@@ -2,34 +2,29 @@
 
 <html>
   <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
     <title>Classic Tortoise Hare Race</title>
     <link href="css/motion.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="js/raceTH.js"></script>
   </head>
   <body>
-      
-      
-      <form class="setup">
-        <div id="rabbit_input">
-          <img id="rabbit_image" class="racers" src="images/rabbit.jpg" height="100" />
-          <ul>
-            <li><input id="rabbitname" type="text" value="name" placeholder="name"></li>
-            <li><input id="rabbitspeed" type="number" value="speed" placeholder="speed"></li>
-            <li><input id="rabbitfocus" type="number" value="focus" placeholder="focus"></li>
-          </ul>
-        </div>
-         <div id="turtleInput">
-          <img id="turtle_image" class="racers" src="images/turtle.jpg" height="100" />
-          <ul>
-            <li><input id="turtlename" type="text" placeholder="name"></li>
-            <li><input id="turtlespeed" type="number" placeholder="speed"></li>
-            <li><input id="turtlefocus" type="number" placeholder="focus"></li>
-          </ul>
-        </div>
-        <button onclick="playGame();">Play Game!</button>
-      </form>
-    
-    </script>
+    <form id="form1" class="game_setup">
+      <ul id="rabbit_input">
+        <li><input id="rabbitname" type="text" placeholder="This Rabbit Needs A Suitable Name"></li>
+        <li><input id="rabbitspeed" type="number" placeholder="Hop, Hop, Hop..."></li>
+        <li><input id="rabbitfocus" type="number" placeholder="Rabbits Tend to Be Distracted..."></li>
+      </ul>
+      <div id="contestant"><h3 id="circle_text"></h3></div>
+      <ul id="turtle_input">
+        <li><input id="turtlename" type="text" placeholder="And Your Name?"></li>
+        <li><input id="turtlespeed" type="number" placeholder="How Fast Are You?"></li>
+        <li><input id="turtlefocus" type="number" placeholder="Are You Focused?"></li>
+      </ul>
+      <button id="button1">Race</button>
+    </form>
+    <img id="setup_rabbit" src="images/realrabbit.png" class="game_setup" />
+    <img id="turtle_image" src="images/realrabbit.png" />
+    <img id="rabbit_image" src="images/realrabbit.png" />
   </body>
 </html>
 
