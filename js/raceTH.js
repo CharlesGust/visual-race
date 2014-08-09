@@ -131,7 +131,7 @@
   ];
 
   function displayWinner(iRacer) {
-    var sWinnerLine = racers[iRacer].name.value + " wins!!";
+    var sWinnerLine = racers[iRacer].name + " wins!!";
     if( graphical) {
       alert(sWinnerLine);
     } else {
@@ -162,6 +162,7 @@
   function playGame() {
     var iWinner;
     var iRacers;
+    var nWinners = 0;
 
 /*
     // the pictures for the racers are the pictures of the respective animals
@@ -184,8 +185,6 @@
 
 
     do {
-      var nWinners = 0;
-
       for(iRacers = 0; iRacers < racers.length; iRacers++) {
         racers[iRacers].move();
         // racers[iRacers].draw();
@@ -203,42 +202,37 @@
     }
   }
 
+  // After the input forms are complete, create a "Racer" object for each one
+  // Also, update the global variable that counts the number of racers
+  // Currently, this function assumes that the UI will not permit an empty
+  // form to appear between two filled ones
   function constructRacers() {
     var iRacer = 0;
 
-    // alert("constructRacers");
-
     for(iRacer = 0; iRacer < nMaxRacers; iRacer++) {
       var sRacerPrefix = "racer"+iRacer;
+      var elName = document.getElementById(sRacerPrefix+"name");
 
-      var rn = document.getElementById(sRacerPrefix+"name");
+      // TODO: We need to check whether the user ever entered data on the form to
+      // see whether or not this racer "counts". Is the best way to check for that
+      // to check if the length of the name entered is 0?
+      if( elName.textLength > 0) {
+        var sName = elName.value;
+        var nSpeed = toNumber(document.getElementById(sRacerPrefix+"speed").value);
+        var nFocus = toNumber(document.getElementById(sRacerPrefix+"focus").value);
+        var nSpecies = toNumber(document.getElementById(sRacerPrefix+"species").value);
+        var objRacer = new Racer(sName, nSpeed, nFocus, nSpecies);
 
-      if( rn == null) {
-        iRacer = nMaxRacers;
+        // use nRacers with post-increment instead of iRacer just in case code
+        // is later altered to permit an empty form between two filled ones.
+        racers[nRacers++] = objRacer;
       } else {
-        var rs = toNumber(document.getElementById(sRacerPrefix+"speed").value);
-        var rf = toNumber(document.getElementById(sRacerPrefix+"focus").value);
-        var ra = toNumber(document.getElementById(sRacerPrefix+"species").value);
-        var nr = new Racer(rn, rs, rf, ra);
-
-        racers[iRacer] = nr;
-        nRacers = iRacer;
+        // assumes the forms are filled sequentially and that there is no need
+        // to check subsequent forms after we find the first empty name.
+        // If that isn't the case, delete the following line to process all
+        iRacer = nMaxRacers;
       }
     }
-    /*
-    var rn = document.getElementById("rabbitname").value;
-    var rs = document.getElementById("rabbitspeed").value;
-    var rf = document.getElementById("rabbitfocus").value;
-
-    var tn = document.getElementById("turtlename").value;
-    var ts = document.getElementById("turtlespeed").value;
-    var tf = document.getElementById("turtlefocus").value;
-
-    rabbit = new Animal(rn, rs, rf);
-    alert(rn);
-    turtle = new Animal(tn, ts, tf);
-    */
-
   }
 
   // destructSetup() removes all DOM elements of class game_setup
