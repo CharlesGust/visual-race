@@ -28,6 +28,16 @@
       return userInput;
   }
 
+  function getNumbervRange(promptPhrase, min, max) {
+    var nResult;
+
+    do {
+      nResult = getNumber(promptPhrase);
+    } while( (nResult < min) || (nResult > max));
+
+    return nResult;
+  }
+
   function lineout(phrase) {
     document.write("<p>" + phrase + "</p>");
   }
@@ -45,19 +55,23 @@
     return sReturn;
   }
 
-  
-  function Animal(name, speed, focus) {
+
+  function Racer(name, speed, focus, species) {
     this.name = name;
     this.speed = speed;
     this.focus = focus;
+    this.species = species;
     this.position = 0;
-    this.image_selector = null;
+    this.verticalDelta = 0;
+    this.dally = 0;
+    //this.image_selector = null;
 
-    this.image = function(image_selector) {
-      this.image_selector = image_selector;
+/*
+    this.setImage = function(elImage) {
+      var elI = elImage;
+      this.image_selector = elI;
     };
-
-    
+*/
 
     // Here, move refers to a game move. The animal may or may not change position
     // The move function also reports the result of the game move
@@ -66,9 +80,9 @@
     this.move = function() {
       var sAction;
 
-       if( Math.random() * 10 < this.focus) {
+       if( Math.random() * 100 < this.focus) {
         this.position += toNumber(this.speed);
-        
+
 
         sAction = "runs " + addplurals(this.speed,"yard") + " and is now";
       } else {
@@ -76,8 +90,12 @@
       }
 
       if( graphical ) {
-        this.image_selector.style.marginLeft = this.position + "%";
-        alert(this.position);
+        var spc = this.species;
+        var szAE = strAnimalElement(spc, "_image");
+        var elS = document.getElementById(szAE);
+
+        elS.style.marginLeft = this.position + "%";
+        //alert(this.position);
       } else {
         lineout(this.name + " " + sAction + " at " + this.position + " yards.");
       }
@@ -85,91 +103,205 @@
 
   }
 
-
-  // TODO: could ask user for these properties
-  var rabbit;
-  var turtle;
+  //var rabbit;
+  //var turtle;
   var distance;
   var graphical;
 
+  var nMaxRacers = 4; // This is arbitrary, but greater formatting complexity if big
+  var nRacers = 0;
+  var racers = [{}];
 
-  function playGame() {
-   
+  // animals data
+  // TODO: should be JSON somewhere if more complex.
+  // TODO: something like enums is probably preferred to these constant indexes
+  var ciAnimalsName = 0;
+  var ciAnimalsMotion = 1;
+  var ciAnimalsTendency = 2;
+  var ciAnimalsDally = 3;
+  var ciAnimalRabbit = 0;
+  var ciAnimalTurtle = 1;
+  var ciAnimalDog = 2;
+  var ciAnimalCat =3;
+  var animals = [
+    ["Rabbit", "Hop", "get distracted easily", 2],
+    ["Turtle", "Walk", "proceed steadily",0],
+    ["Dog", "Run", "obey if it makes you happy",5],
+    ["Cat", "Prance", "wander aimlessly",5]
+  ];
 
-    var ti = document.getElementById("turtle_image");
-    alert(ti.style.marginLeft);
-    turtle.image(ti);
-    rabbit.image(document.getElementById("rabbit_image"));
-
-    
-    do {
-      rabbit.move();
-      turtle.move();
-    } while((rabbit.position < distance) && (turtle.position < distance));
-
-    if(rabbit.position >= distance) {
-
-      if(turtle.position >= distance) {
-        lineout("It's too close to call!!");
-      } else {
-        lineout(rabbit.name + " wins!!!");
-      }
-
+  function displayWinner(iRacer) {
+    var sWinnerLine = racers[iRacer].name.value + " wins!!";
+    if( graphical) {
+      alert(sWinnerLine);
     } else {
-      lineout(turtle.name + " wins!!!");
+      lineout(sWinnerLine);
     }
-
   }
 
-  function constructAnimals() {
+  // TODO: it would be better to build a winners list as the winners are found
+  // than go back through this list looking for them
+  function displayWinners() {
+    var iRacer;
 
-    alert("constructAnimals");
+    if (! graphical) {
+      lineout("It's too close to call!!");
+    }
+    for(iRacer = 0; iRacer < racers.length; iRacer++) {
+      if(racers[iRacer].position >= distance) {
+        displayWinner(iRacer);
+      }
+    }
+  }
 
-    
+  function strAnimalElement(iSpecies, suffix) {
+    var rv = animals[iSpecies][ciAnimalsName].toLowerCase() + suffix;
+    return rv;
+  }
+
+  function playGame() {
+    var iWinner;
+    var iRacers;
+
+/*
+    // the pictures for the racers are the pictures of the respective animals
+    for(iRacer = 0; iRacer < nRacers; iRacer++) {
+      var rIr = racers[iRacer];
+      var spc = rIr.species;
+      var szAE = strAnimalElement(spc, "_image");
+      var elS = document.getElementById(szAE);
+
+
+      rIr.setImage(elS);
+      // racers[iRacer].setImage(document.getElementById(strAnimalElement(racers[iRacer].species, "_image")));
+    }
+  */
+
+    //var ti = document.getElementById("turtle_image");
+    //alert(ti.style.marginLeft);
+    //turtle.image(ti);
+    //rabbit.image(document.getElementById("rabbit_image"));
+
+
+    do {
+      var nWinners = 0;
+
+      for(iRacers = 0; iRacers < racers.length; iRacers++) {
+        racers[iRacers].move();
+        // racers[iRacers].draw();
+        if( racers[iRacers].position >= distance) {
+          iWinner = iRacers;
+          nWinners++;
+        }
+      }
+    } while(nWinners == 0);
+
+    if(nWinners == 1) {
+      displayWinner(iWinner);
+    } else {
+      displayWinners();
+    }
+  }
+
+  function constructRacers() {
+    var iRacer = 0;
+
+    // alert("constructRacers");
+
+    for(iRacer = 0; iRacer < nMaxRacers; iRacer++) {
+      var sRacerPrefix = "racer"+iRacer;
+
+      var rn = document.getElementById(sRacerPrefix+"name");
+
+      if( rn == null) {
+        iRacer = nMaxRacers;
+      } else {
+        var rs = toNumber(document.getElementById(sRacerPrefix+"speed").value);
+        var rf = toNumber(document.getElementById(sRacerPrefix+"focus").value);
+        var ra = toNumber(document.getElementById(sRacerPrefix+"species").value);
+        var nr = new Racer(rn, rs, rf, ra);
+
+        racers[iRacer] = nr;
+        nRacers = iRacer;
+      }
+    }
+    /*
     var rn = document.getElementById("rabbitname").value;
     var rs = document.getElementById("rabbitspeed").value;
     var rf = document.getElementById("rabbitfocus").value;
-  
+
     var tn = document.getElementById("turtlename").value;
     var ts = document.getElementById("turtlespeed").value;
     var tf = document.getElementById("turtlefocus").value;
-    
+
     rabbit = new Animal(rn, rs, rf);
     alert(rn);
     turtle = new Animal(tn, ts, tf);
+    */
 
   }
 
+  // destructSetup() removes all DOM elements of class game_setup
   function destructSetup() {
-    
     var setup_list = document.getElementsByClassName("game_setup");
 
     while(setup_list[0]) {
-      alert("removing: " + setup_list[0]);
+      //alert("removing: " + setup_list[0]);
       setup_list[0].parentNode.removeChild(setup_list[0]);
-
-    
     }
-    
   }
 
+/*
+  function addRacerSpecies(sRacerPrefix, elRacerName, iAnimal) {
+    alert("addRacerSpecies");
+    var elRacerSpecies = document.createElement(sRacerPrefix + "species");
+    var sNewText = document.createTextNode(iAnimal);
+    elRacerSpecies.appendChild(sNewText);
+    var position = document.getElementById(sRacerPrefix+"_input");
+    position.appendChild(elRacerSpecies);
+  }
+*/
+
   function setupGame() {
+    var iAnimal = 0;
+    var iRacer = 0;
 
-    var elRabbit = document.getElementById("rabbitname");
-    //alert("in setupGame");
-    
-    elRabbit.onchange = function() {
-      var rn = elRabbit.value;
-      document.getElementById("rabbitspeed").placeholder = 'How Fast Does ' + rn + ' Hop?';
-      document.getElementById("rabbitfocus").placeholder = 'Is ' + rn + ' Easily Distracted?';
-    };
+    // TODO: fancier animal selection is around the corner
+    /* while( (iAnimal = getNumbervRange("What kind of animal to racer? 0 to exit",0,animals.length - 1)) > 0) { */
+    for(iRacer = 0; iRacer < nMaxRacers; iRacer++) {
+      var sRacerPrefix = "racer" + iRacer;
+      var elRacerName = document.getElementById(sRacerPrefix+"name");
+      var elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
+      var elRacerFocus = document.getElementById(sRacerPrefix+"focus");
 
-    var elButton = document.getElementById("button1");
-    elButton.onclick = function() {
-      constructAnimals();
-      destructSetup();
-      playGame();
-    };
+      // TODO: is there a better way to get species than from user input on a form?
+      var elRacerSpecies = document.getElementById(sRacerPrefix+"species");
+
+      var sAnimalMotion = animals[iAnimal][ciAnimalsMotion];
+
+      elRacerName.placeholder = "This " + animals[iAnimal][ciAnimalsName].toLowerCase() + " needs a suitable name";
+      elRacerSpeed.placeholder = sAnimalMotion +", " + sAnimalMotion + ", " + sAnimalMotion + "...";
+      elRacerFocus.placeholder = animals[iAnimal][ciAnimalsName] + " tend to " + animals[iAnimal][ciAnimalsTendency];
+
+/*
+      addRacerSpecies(sRacerPrefix,elRacerName,iAnimal);
+      */
+    }
+
+      elRacerName.onchange = function() {
+        var rn = elRacerName.value;
+        elRacerSpeed.placeholder =
+                                "How fast does " + rn + " " + animals[iAnimal][ciAnimalsMotion].toLowerCase() + " (1-10)?";
+        elRacerFocus.placeholder =
+                                "What percent of the time does " + rn + " focus?";
+      };
+
+      var elButtonRace = document.getElementById("buttonRace");
+      elButtonRace.onclick = function() {
+        constructRacers();
+        destructSetup();
+        playGame();
+      };
 
     distance = 80; //getNumber("How many yards is the race?");
     graphical = true; //(prompt("Would you like to see a graphical race?"));
@@ -177,13 +309,10 @@
   }
 
   window.onload = function() {
-
     setupGame();
   };
 
 
-    
-    
 
 
 
@@ -194,11 +323,13 @@
 
 
 
-  
 
-  
 
- 
+
+
+
+
+
 
 
 

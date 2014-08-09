@@ -2,52 +2,12 @@ body {
   background-color: #4bff00;
 }
 
-#form1 {
-  display: block;
-  width: 50%;
-  height: 400px;
-  margin-right: auto;
-  margin-left: auto;
-  background-color: #c000ff;
-  margin-top: 100px;
-  padding: 50px 0 50px 0;
-
-}
-
-#setup_rabbit {
-  margin-top: -140px;
-  height: 40%;
-  width: 40%;
-  z-index: -200;
-}
-
-
-#game_rabbit {
-  
-  margin-left: 0px;
-  width: 10%;
-  height: 10%; 
-
-}
-
-#game_turtle {
-  margin-left: 0%;
-  width: 10%;
-  height: 10%; 
-  
-}
-
-#setup_turtle {
-
-
-}
-
 ul {
   list-style-type: none;
 }
 
 ul li {
-  margin-top: 5px; 
+  margin-top: 5px;
 }
 
 input {
@@ -61,17 +21,83 @@ input {
   font-family: 'Lato', sans-serif;
 }
 
-
-#rabbit_input {
-  margin-top: 20px;
-  
-
+#form1 {
+  display: block;
+  width: 50%;
+  height: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #c000ff;
+  margin-top: 100px;
+  padding: 50px 0 50px 0;
 }
 
-#turtle_input {
-  margin-top: 50px;
-  display: none;
+#rabbit_image {
+  margin-top: -140px;
+  height: 100px;
+  width: 100px;
+  z-index: -200;
+}
 
+#turtle_image {
+  margin-top: -140px;
+  height: 100px;
+  width: 100px;
+  z-index: -200;
+}
+
+#dog_image {
+  margin-top: -140px;
+  height: 100px;
+  width: 100px;
+  z-index: -200;
+}
+
+#cat_image {
+  margin-top: -140px;
+  height: 100px;
+  width: 100px;
+  z-index: -200;
+}
+
+#racer0image {
+  margin-left: 0px;
+  width: 10%;
+  height: 10%;
+}
+
+#racer1image {
+  margin-left: 0%;
+  width: 10%;
+  height: 10%;
+}
+
+#racer2image {
+  margin-left: 0%;
+  width: 10%;
+  height: 10%;
+}
+
+#racer3image {
+  margin-left: 0%;
+  width: 10%;
+  height: 10%;
+}
+
+#racer0_input {
+  margin-top: 20px;
+}
+
+#racer1_input {
+  margin-top: 50px;
+}
+
+#racer2_input {
+  margin-top: 80px;
+}
+
+#racer3_input {
+  margin-top: 110px;
 }
 
 #contestant {
@@ -82,8 +108,6 @@ input {
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
-  
- 
 }
 
 #circle_text {
@@ -94,9 +118,7 @@ input {
   margin-right: auto;
 }
 
-
-
-#button1 {
+#buttonRace {
   font-size: 1.2em;
   color: #383838;
   width: 50%;
@@ -109,19 +131,11 @@ input {
   font-family: 'Lato', sans-serif;
 }
 
-#button1 a {
+#buttonRace a {
   text-decoration: none;
   font-family: 'Lato', sans-serif;
 }
 
-#button1:hover {
+#buttonRace:hover {
   background-color: rgba(0, 243, 255, 0.9);
 }
-
-
-
-
-
-
-
-
