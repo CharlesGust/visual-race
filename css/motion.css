@@ -116,7 +116,7 @@ input {
 }
 
 #racer0species, #racer1species, #racer2species, #racer3species {
-  display: none;
+  
 }
 
 #racer1_input, #racer2_input, #racer3_input {
@@ -124,7 +124,6 @@ input {
   display: none;
 
 }
-
 
 #contestant {
   height: 150px;

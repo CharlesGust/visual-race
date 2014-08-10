@@ -1,3 +1,4 @@
+/*jshint loopfunc: true */
 //
 // This runs a simple simulation of a tortoise hare race.
 // This simulation considers each animal to have a name, speed and focus.
@@ -316,9 +317,12 @@
 
   }
 
-  
 
-  window.onload = function toggleButton() {
+  /* 
+   * On mouseover of contestants button, changes the interface to a pop up of different animals to select.
+   */
+  function switchToContestants() {
+    alert("in switchToContestants");
     var elContestant = document.getElementById("contestant");
     elContestant.onmouseover = function() {
       var elContestant_images = document.getElementById("contestant_selection");
@@ -331,25 +335,70 @@
       elButton.style.display = "none";
       elContestant_images.style.display = "block";
       elContestant.style.backgroundColor = "rgba(255, 0, 0, 0.7)";
-
-   };
-
-    function setStyle() {
-      this.style.backgroundColor = ""
-
-
-    }
-    var elAnimalImages = document.getElementById("zebra_image.png", "ocotopus_image.png",
-                                          "fox_image.png", "pelican_image.png");
-    for (i = 0; i < elAnimalImages.length; i++) {
-      elAnimalImages[i].onmouseover = function() {
-        elAnimalImages[i].style.backgroundColor = "red";
-      };
-
     };
+  }
 
 
+ /*
+  * Contains key value pairs to match animal image selection to the specific input box.
+  */
+  var input_lookup = {
+    "/images/realrabbit.png": "racer0_input",
+    "/images/zebra1.png": "racer1_input",
+    "/images/octopus1.png": "racer2_input",
+    "/images/fox1.png": "racer3_input"
+    //"images/pelican.png"
+  };
 
+  
+ /*
+  * Looks up animal image src in input_lookup to retrieve the specific input form 
+  * and make the form visible on page.
+  */
+  function switchInputBox(elSrc) {
+    for (var src in input_lookup) {
+      if (elSrc === src) {
+        document.getElementById(input_lookup[src]).style.display = "block";
+        racer0_input.style.display = "none";
+      }
+    }
+    //var elContest = document.getElementById("contestant");
+    //elContest.innerText = "Next Up"; //TODO: Change to same formatting as #contestant h3
+    switchToContestants();
+  }
+
+
+ /*
+  * Hides pop up animal selection 
+  */
+  function switchToForm() {
+    var elAnimals = document.getElementsByClassName("setup_image");
+    for (var i = 0; i < animals.length; i++) {
+      elAnimals[i].style.display = "none";
+    
+    var elContestant_images = document.getElementById("contestant_selection");
+    elContestant_images.style.display = "none";
+    }
+  }
+
+
+  window.onload = function () {
+
+    switchToContestants();
+   
+    var elAnimals = document.getElementsByClassName("setup_image");
+    for (var i = 0; i < elAnimals.length; i++) {
+      elAnimals[i].onmouseover = function() {this.style.opacity = "0.8";};
+    }
+
+    for (var j = 0; j < elAnimals.length; j++) {
+      elAnimals[j].onclick = function() {
+        switchToForm();
+        var elPath = this.src;
+        var elSrc = elPath.substr(elPath.lastIndexOf("/images"));
+        switchInputBox(elSrc);
+      };
+    }
 
     setupGame();
     
