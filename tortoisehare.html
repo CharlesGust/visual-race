@@ -6,44 +6,64 @@
     <title>Classic Tortoise Hare Race</title>
     <link href="css/motion.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="js/raceTH.js"></script>
+    
   </head>
   <body>
+
     <form id="form1" class="game_setup">
+
       <ul id="racer0_input">
         <li><input id="racer0species" type="number" placeholder="What type of racer (0-3)?"></li>
-        <li><input id="racer0name" type="text" placeholder="What is the racer's name?"></li>
-        <li><input id="racer0speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
-        <li><input id="racer0focus" type="number" placeholder="What percent of the time is racer focused?"></li>
+        <li><input id="racer0name" type="text" placeholder="Frederick or Nelson, Hazel or Dame, What's Your Rabbit's Name?"></li>
+        <li><input id="racer0speed" type="number" placeholder="Hop Fast, Hop Slow, How Fast Does Rabbit Go?"></li>
+        <li><input id="racer0focus" type="number" placeholder="Sniff Clover, Munch Berry, How Much Does Rabbit Tarry?"></li>
       </ul>
+
       <ul id="racer1_input">
         <li><input id="racer1species" type="number" placeholder="What type of racer (0-3)?"></li>
         <li><input id="racer1name" type="text" placeholder="What is the racer's name?"></li>
         <li><input id="racer1speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
         <li><input id="racer1focus" type="number" placeholder="What percent of the time is racer focused?"></li>
       </ul>
+
       <ul id="racer2_input">
         <li><input id="racer2species" type="number" placeholder="What type of racer (0-3)?"></li>
         <li><input id="racer2name" type="text" placeholder="And Your Name?"></li>
         <li><input id="racer2speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
         <li><input id="racer2focus" type="number" placeholder="What percent of the time is racer focused?"></li>
       </ul>
+
       <ul id="racer3_input">
         <li><input id="racer3species" type="number" placeholder="What type of racer (0-3)?"></li>
         <li><input id="racer3name" type="text" placeholder="And Your Name?"></li>
         <li><input id="racer3speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
         <li><input id="racer3focus" type="number" placeholder="What percent of the time is racer focused?"></li>
       </ul>
-      <div id="contestant"><h3 id="circle_text"></h3></div>
+
+      <div id="contestant"><h3>Contestants</h3></div>
+      <div id="contestant_selection">
+        <ul="first">
+          <li><img id="zebra_image" src="images/zebra1.png" /></li>
+          <li><img id="octopus_image" src="images/octopus1.png" /></li>
+        </ul>
+        <ul id="second">
+          <li><img id="fox_image" src="images/fox1.png" /></li>
+          <li><img id="pelican_image" src="images/pelican.png" /></li>
+        </ul>
+      </div>
       <button id="buttonRace">Race</button>
     </form>
-    <img id="turtle_image" src="images/turtle.png" />
     <img id="rabbit_image" src="images/realrabbit.png" />
-    <img id="dog_image" src="images/dog.jpg" />
-    <img id="cat_image" src="images/cat.jpg" />
+
+    <!--<img id="turtle_image" src="images/turtle.png" />-->
+    
+    <!--<img id="dog_image" src="images/dog.jpg" />-->
+    <!--<img id="cat_image" src="images/cat.jpg" />-->
     <!-- TODO: have a different setup image from the race image
     <img id="setup_rabbit" src="images/realrabbit.png" class="game_setup" />
     -->
   </body>
+
 </html>
 
 

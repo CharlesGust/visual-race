@@ -265,53 +265,102 @@
   function setupGame() {
     var iAnimal = 0;
     var iRacer = 0;
+    var elRacerName;
+    var elRacerSpeed;
+    var elRacerFocus;
+    var sRacerPrefix;
+    var elRacerSpecies;
+    var sAnimalMotion;
 
     // TODO: fancier animal selection is around the corner
     /* while( (iAnimal = getNumbervRange("What kind of animal to racer? 0 to exit",0,animals.length - 1)) > 0) { */
     for(iRacer = 0; iRacer < nMaxRacers; iRacer++) {
-      var sRacerPrefix = "racer" + iRacer;
-      var elRacerName = document.getElementById(sRacerPrefix+"name");
-      var elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
-      var elRacerFocus = document.getElementById(sRacerPrefix+"focus");
+      sRacerPrefix = "racer" + iRacer;
+      elRacerName = document.getElementById(sRacerPrefix+"name");
+      elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
+      elRacerFocus = document.getElementById(sRacerPrefix+"focus");
 
       // TODO: is there a better way to get species than from user input on a form?
-      var elRacerSpecies = document.getElementById(sRacerPrefix+"species");
+      elRacerSpecies = document.getElementById(sRacerPrefix+"species");
 
-      var sAnimalMotion = animals[iAnimal][ciAnimalsMotion];
+      sAnimalMotion = animals[elRacerSpecies][ciAnimalsMotion];
+      }
+      
+    elRacerSpecies.onchange = function() {
 
-      elRacerName.placeholder = "This " + animals[iAnimal][ciAnimalsName].toLowerCase() + " needs a suitable name";
-      elRacerSpeed.placeholder = sAnimalMotion +", " + sAnimalMotion + ", " + sAnimalMotion + "...";
-      elRacerFocus.placeholder = animals[iAnimal][ciAnimalsName] + " tend to " + animals[iAnimal][ciAnimalsTendency];
+    elRacerName.placeholder = "This " + animals[iAnimal][ciAnimalsName].toLowerCase() + " needs a suitable name";
+    elRacerSpeed.placeholder = sAnimalMotion +", " + sAnimalMotion + ", " + sAnimalMotion + "...";
+    elRacerFocus.placeholder = animals[iAnimal][ciAnimalsName] + " tend to " + animals[iAnimal][ciAnimalsTendency];
 
-/*
-      addRacerSpecies(sRacerPrefix,elRacerName,iAnimal);
-      */
-    }
+   };
 
-      elRacerName.onchange = function() {
-        var rn = elRacerName.value;
-        elRacerSpeed.placeholder =
-                                "How fast does " + rn + " " + animals[iAnimal][ciAnimalsMotion].toLowerCase() + " (1-10)?";
-        elRacerFocus.placeholder =
-                                "What percent of the time does " + rn + " focus?";
-      };
 
-      var elButtonRace = document.getElementById("buttonRace");
-      elButtonRace.onclick = function() {
-        constructRacers();
-        destructSetup();
-        playGame();
-      };
+
+    elRacerName.onchange = function() {
+      var rn = elRacerName.value;
+      elRacerSpeed.placeholder =
+                              "How fast does " + rn + " " + animals[iAnimal][ciAnimalsMotion].toLowerCase() + " (1-10)?";
+      elRacerFocus.placeholder =
+                              "What percent of the time does " + rn + " focus?";
+    };
+
+    var elButtonRace = document.getElementById("buttonRace");
+    elButtonRace.onclick = function() {
+      constructRacers();
+      destructSetup();
+      playGame();
+    };
 
     distance = 80; //getNumber("How many yards is the race?");
     graphical = true; //(prompt("Would you like to see a graphical race?"));
 
   }
 
-  window.onload = function() {
+  
+
+  window.onload = function toggleButton() {
+    var elContestant = document.getElementById("contestant");
+    elContestant.onmouseover = function() {
+      var elContestant_images = document.getElementById("contestant_selection");
+      var elForm = document.getElementById("form1");
+      var elInput = document.getElementById("racer0_input");
+      var elRabbit = document.getElementById("rabbit_image");
+      var elButton = document.getElementById("buttonRace");
+      elForm.style.zIndex = "-200";
+      elInput.style.visibility = "hidden";
+      elButton.style.display = "none";
+      elContestant_images.style.display = "block";
+      elContestant.style.backgroundColor = "rgba(255, 0, 0, 0.7)";
+
+   };
+
+    function setStyle() {
+      this.style.backgroundColor = ""
+
+
+    }
+    var elAnimalImages = document.getElementById("zebra_image.png", "ocotopus_image.png",
+                                          "fox_image.png", "pelican_image.png");
+    for (i = 0; i < elAnimalImages.length; i++) {
+      elAnimalImages[i].onmouseover = function() {
+        elAnimalImages[i].style.backgroundColor = "red";
+      };
+
+    };
+
+
+
+
     setupGame();
+    
   };
 
+  
+
+
+
+  
+  
 
 
 
