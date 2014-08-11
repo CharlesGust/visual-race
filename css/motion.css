@@ -133,15 +133,17 @@ input {
 
 #contestant h2 {
   font-size: 1.1em;
+  padding-top: 50px;
   margin-left: auto;
   margin-right: auto;
   width: 80%;
   font-family: 'Lato', sans-serif;
   color: white;
-  line-height: 150px;
+  vertical-align: 50%;
   text-align: center;
 
 }
+
 
 #buttonRace, #buttonEnterContestant {
   font-size: 1.2em;
@@ -184,6 +186,34 @@ input {
   padding: 8%;
 
 }
+
+#game_title {
+  color: red;
+  text-align: center;
+  font-size: 2.5em;
+  margin-top: 20px;
+  font-family: 'Oswald', sans-serif;
+  display: none;
+}
+
+#game_images {
+  margin-top: 10px;
+  list-style-type: none;
+  margin-left: 0%;
+  display: none;
+
+
+}
+
+#game_images li {
+  padding-top: 40px;
+}
+
+#fox_racer {
+  height: 70px;
+  width: 70px;
+}
+
 
 
 

@@ -150,6 +150,7 @@
     ["Pelican", "Fly", "stop for fish", 2]
   ];
 
+
   function displayWinner(iRacer) {
     var sWinnerLine = racers[iRacer].name + " wins!!";
     if( graphical) {
@@ -364,6 +365,11 @@
    };
 */
 
+    
+
+
+
+
     elRacerName.onchange = function() {
 
       var sRacerPrefix = "racer" + iRacer;
@@ -371,6 +377,7 @@
       var rn = elRacerName.value;
       var elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
       var elRacerFocus = document.getElementById(sRacerPrefix+"focus");
+
 
       elRacerSpeed.placeholder =
                               "How fast does " + rn + " " + animals[iAnimal][ciAnimalsMotion].toLowerCase() + " (1-10)?";
@@ -545,7 +552,7 @@
   window.onload = function() {
 
     initialState();
-
+    
     elAnimals = document.getElementsByClassName("setup_image");
     for (var i = 0; i < elAnimals.length; i++) {
       elAnimals[i].onmouseover = function() {this.style.opacity = "0.8";};
