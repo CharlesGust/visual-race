@@ -2,46 +2,21 @@
 
 <html>
   <head>
+    <meta charset="UTF-8">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
-    <title>Classic Tortoise Hare Race</title>
+    <title>Animal Race Simulation</title>
     <link href="css/motion.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="js/raceTH.js"></script>
-    
+
   </head>
   <body>
 
     <form id="form1" class="game_setup">
-
-      <ul id="racer0_input" class="input">
-        <li><input id="racer0species" type="number" placeholder="What type of racer (0-3)?"></li>
-        <li><input id="racer0name" type="text" placeholder="Frederick or Nelson, Hazel or Dame, What's Your Rabbit's Name?"></li>
-        <li><input id="racer0speed" type="number" placeholder="Hop Fast, Hop Slow, How Fast Does Rabbit Go?"></li>
-        <li><input id="racer0focus" type="number" placeholder="Sniff Clover, Munch Berry, How Much Does Rabbit Tarry?"></li>
-      </ul>
-
-      <ul id="racer1_input" class="input">
-        <li><input id="racer1species" type="number" placeholder="What type of racer (0-3)?"></li>
-        <li><input id="racer1name" type="text" placeholder="What is the racer's name?"></li>
-        <li><input id="racer1speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
-        <li><input id="racer1focus" type="number" placeholder="What percent of the time is racer focused?"></li>
-      </ul>
-
-      <ul id="racer2_input" class="input">
-        <li><input id="racer2species" type="number" placeholder="What type of racer (0-3)?"></li>
-        <li><input id="racer2name" type="text" placeholder="And Your Name?"></li>
-        <li><input id="racer2speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
-        <li><input id="racer2focus" type="number" placeholder="What percent of the time is racer focused?"></li>
-      </ul>
-
-      <ul id="racer3_input" class="input">
-        <li><input id="racer3species" type="number" placeholder="What type of racer (0-3)?"></li>
-        <li><input id="racer3name" type="text" placeholder="And Your Name?"></li>
-        <li><input id="racer3speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
-        <li><input id="racer3focus" type="number" placeholder="What percent of the time is racer focused?"></li>
-      </ul>
-
-      <div id="contestant"><h3>Contestants</h3></div>
-      <div id="contestant_selection">
+      <div id="contestant" class="selectSpecies">
+      <h1>Species</h1>
+      <h2>Click on an image to put that animal in the race</h2>
+      </div>
+      <div id="contestant_selection" class="selectSpecies">
         <ul="first">
           <li><img id="zebra_image" class="setup_image" src="images/zebra1.png" /></li>
           <li><img id="octopus_image" class="setup_image" src="images/octopus1.png" /></li>
@@ -51,12 +26,37 @@
           <li><img id="pelican_image" class="setup_image" src="images/pelican.png" /></li>
         </ul>
       </div>
+
+      <ul id="racer0_input" class="inputForm">
+        <li><input id="racer0name" type="text" placeholder="What is the racer's name?"></li>
+        <li><input id="racer0speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
+        <li><input id="racer0focus" type="number" placeholder="What percent of the time is racer focused?"></li>
+      </ul>
+
+      <ul id="racer1_input" class="inputForm">
+        <li><input id="racer1name" type="text" placeholder="What is the racer's name?"></li>
+        <li><input id="racer1speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
+        <li><input id="racer1focus" type="number" placeholder="What percent of the time is racer focused?"></li>
+      </ul>
+
+      <ul id="racer2_input" class="inputForm">
+        <li><input id="racer2name" type="text" placeholder="What is the racer's name?"></li>
+        <li><input id="racer2speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
+        <li><input id="racer2focus" type="number" placeholder="What percent of the time is racer focused?"></li>
+      </ul>
+
+      <ul id="racer3_input" class="inputForm">
+        <li><input id="racer3name" type="text" placeholder="What is the racer's name?"></li>
+        <li><input id="racer3speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
+        <li><input id="racer3focus" type="number" placeholder="What percent of the time is racer focused?"></li>
+      </ul>
+      <button id="buttonEnterContestant">Enter Contestant</button>
       <button id="buttonRace">Race</button>
     </form>
     <img id="rabbit_image" src="images/realrabbit.png" />
 
     <!--<img id="turtle_image" src="images/turtle.png" />-->
-    
+
     <!--<img id="dog_image" src="images/dog.jpg" />-->
     <!--<img id="cat_image" src="images/cat.jpg" />-->
     <!-- TODO: have a different setup image from the race image

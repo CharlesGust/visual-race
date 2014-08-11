@@ -48,8 +48,8 @@ input {
   background-color: #00f3ff;
   border-radius: 50%;
   padding: 10px;
-  
- 
+
+
 }
 
 #octopus_image {
@@ -60,7 +60,7 @@ input {
   background-color: #00f3ff;
   border-radius: 50%;
   padding: 10px;
- 
+
 }
 
 #fox_image {
@@ -110,17 +110,7 @@ input {
   height: 10%;
 }
 
-#racer0_input {
-  margin-top: 20px;
-  display: block;
-  
-}
-
-#racer0species, #racer1species, #racer2species, #racer3species {
-  
-}
-
-#racer1_input, #racer2_input, #racer3_input {
+#racer0_input, #racer1_input, #racer2_input, #racer3_input {
   margin-top: 20px;
   display: none;
 
@@ -177,7 +167,7 @@ input {
   margin-top: -440px;
   border-radius: 50%;
   border: 4px solid yellow;
- 
+
 }
 
 

@@ -1,13 +1,18 @@
 /*jshint loopfunc: true */
 //
-// This runs a simple simulation of a tortoise hare race.
-// This simulation considers each animal to have a name, speed and focus.
-// The user is queried for the length of the race.
-// If a randomly generated value determines the animal is focused, the animal advances their speed
-// Otherwise, the animal remains at their position
+// This is a simulation of an animal race, inspired by the classic tortoise/hare
 //
-// by Charles Gust
+// by Elizabeth Rives & Charles Gust
 //
+// In general, there is a setup phase that collects information about which animals
+// you want to race, how fast they move and how focused they remain on racing.
+// Then, the setup UI is removed, the racers are constructed.
+// Each step of the simulation calculates whether the racer remained focused enough
+// to move at their speed.
+//
+
+/* TODO: fix white space to have global functions start in leftmost column */
+
 
   function yes(theString) {
     return theString[0].toLowerCase() == "y";
@@ -93,6 +98,7 @@
       if( graphical ) {
         var spc = this.species;
         var szAE = strAnimalElement(spc, "_image");
+        // CMG: TODO: the next line is wrong if two animals of the same type are racing
         var elS = document.getElementById(szAE);
 
         elS.style.marginLeft = this.position + "%";
@@ -104,12 +110,10 @@
 
   }
 
-  //var rabbit;
-  //var turtle;
   var distance;
   var graphical;
 
-  var nMaxRacers = 4; // This is arbitrary, but greater formatting complexity if big
+  var nMaxRacers = 4; // This is arbitrary limit, but greater formatting complexity if big
   var nRacers = 0;
   var racers = [{}];
 
@@ -120,15 +124,30 @@
   var ciAnimalsMotion = 1;
   var ciAnimalsTendency = 2;
   var ciAnimalsDally = 3;
+  var ciAnimalZebra = 0;
+  var ciAnimalOctopus = 1;
+  var ciAnimailFox = 2;
+  var ciAnimalPelican = 3;
+  /*
   var ciAnimalRabbit = 0;
   var ciAnimalTurtle = 1;
   var ciAnimalDog = 2;
   var ciAnimalCat =3;
+  */
+
+// CMG: TODO: we were planning to change more of the placeholder text
+// the animals table holds anything that we want to associate with a particular animal
   var animals = [
+  /*
     ["Rabbit", "Hop", "get distracted easily", 2],
     ["Turtle", "Walk", "proceed steadily",0],
     ["Dog", "Run", "obey if it makes you happy",5],
     ["Cat", "Prance", "wander aimlessly",5]
+  */
+    ["Zebra", "Gallop", "start and stop", 0],
+    ["Octopus", "Swim", "pull themselves along", 2],
+    ["Fox", "Run", "proceed slyly", 2],
+    ["Pelican", "Fly", "stop for fish", 2]
   ];
 
   function displayWinner(iRacer) {
@@ -203,10 +222,9 @@
     }
   }
 
+/*
   // After the input forms are complete, create a "Racer" object for each one
   // Also, update the global variable that counts the number of racers
-  // Currently, this function assumes that the UI will not permit an empty
-  // form to appear between two filled ones
   function constructRacers() {
     alert("in constructRacers");
     var iRacer = 0;
@@ -236,16 +254,63 @@
       }
     }
   }
+*/
 
-  // destructSetup() removes all DOM elements of class game_setup
-  function destructSetup() {
-    var setup_list = document.getElementsByClassName("game_setup");
+  var iCurrentSpecies;
+  //
+  // GetCurrentSpecies either has to access a global variable, or do a search
+  // of the DOM to find which animal is selected.
+  function getCurrentSpecies() {
+    return iCurrentSpecies;
+  }
+
+  function constructRacer() {
+    var sRacerPrefix = "racer"+nRacers;
+    var elName = document.getElementById(sRacerPrefix+"name");
+
+    if(elName.textLength <= 0) {
+      return;
+    }
+
+    var sName = elName.value;
+    var nSpeed = toNumber(document.getElementById(sRacerPrefix+"speed").value);
+
+    if(nSpeed <= 0) {
+      return;
+    }
+
+    var nFocus = toNumber(document.getElementById(sRacerPrefix+"focus").value);
+    if( (nFocus <= 0) || (nFocus > 100)) {
+      return;
+    }
+
+    var nSpecies = getCurrentSpecies();
+    var objRacer = new Racer(sName, nSpeed, nFocus, nSpecies);
+
+    racers[nRacers++] = objRacer;
+  }
+
+  // destructClassName() removes all DOM elements of named class
+  function destructClassName(sClassName) {
+    var setup_list = document.getElementsByClassName(sClassName);
 
     while(setup_list[0]) {
       //alert("removing: " + setup_list[0]);
       setup_list[0].parentNode.removeChild(setup_list[0]);
     }
   }
+
+/*
+  // destructClassName() removes all DOM elements of named class
+  function destructIdName(sIdName) {
+    var setup_list = document.getElementByIdentifer(sIdName);
+
+    while(setup_list[0]) {
+      //alert("removing: " + setup_list[0]);
+      setup_list[0].parentNode.removeChild(setup_list[0]);
+    }
+  }
+  */
 
 /*
   function addRacerSpecies(sRacerPrefix, elRacerName, iAnimal) {
@@ -258,31 +323,38 @@
   }
 */
 
+
   function setupGame() {
     alert("in setupGame");
     var iAnimal = 0;
     var iRacer = 0;
-    var elRacerName;
-    var elRacerSpeed;
-    var elRacerFocus;
-    var sRacerPrefix;
-    var elRacerSpecies;
-    var sAnimalMotion;
+    //var elRacerSpecies;
+    //var sAnimalMotion;
 
-    // TODO: fancier animal selection is around the corner
-    /* while( (iAnimal = getNumbervRange("What kind of animal to racer? 0 to exit",0,animals.length - 1)) > 0) { */
-    for(iRacer = 0; iRacer < nMaxRacers; iRacer++) {
-      sRacerPrefix = "racer" + iRacer;
-      elRacerName = document.getElementById(sRacerPrefix+"name");
-      elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
-      elRacerFocus = document.getElementById(sRacerPrefix+"focus");
+/*
+    function initInputFormForRacer(iRacer) {
+        sRacerPrefix = "racer" + iRacer;
+        elRacerName = document.getElementById(sRacerPrefix+"name");
+        elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
+        elRacerFocus = document.getElementById(sRacerPrefix+"focus");
+    }
 
-      // TODO: is there a better way to get species than from user input on a form?
-      elRacerSpecies = document.getElementById(sRacerPrefix+"species");
+    initInputFormForRacer(nRacers);
+*/
 
-      sAnimalMotion = animals[elRacerSpecies][ciAnimalsMotion];
-      }
-      
+    // TODO: is there a better way to get species than from user input on a form?
+    // elRacerSpecies = document.getElementById(sRacerPrefix+"species");
+
+
+
+/*
+    TODO: CMG: I commented out this function because a elRacerSpecies listener is only relevant if
+    we are entering a species on a form. Because we now infer the species from which picture was selected,
+    there is no event we can watch to put in these cuter questions.
+    We also don't need the sAnimalMotion string
+
+    sAnimalMotion = animals[elRacerSpecies][ciAnimalsMotion].value;
+
     elRacerSpecies.onchange = function() {
 
     elRacerName.placeholder = "This " + animals[iAnimal][ciAnimalsName].toLowerCase() + " needs a suitable name";
@@ -290,9 +362,16 @@
     elRacerFocus.placeholder = animals[iAnimal][ciAnimalsName] + " tend to " + animals[iAnimal][ciAnimalsTendency];
 
    };
+*/
 
     elRacerName.onchange = function() {
+
+      var sRacerPrefix = "racer" + iRacer;
+      var elRacerName = document.getElementById(sRacerPrefix+"name");
       var rn = elRacerName.value;
+      var elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
+      var elRacerFocus = document.getElementById(sRacerPrefix+"focus");
+
       elRacerSpeed.placeholder =
                               "How fast does " + rn + " " + animals[iAnimal][ciAnimalsMotion].toLowerCase() + " (1-10)?";
       elRacerFocus.placeholder =
@@ -301,10 +380,22 @@
 
     var elButtonRace = document.getElementById("buttonRace");
     elButtonRace.onclick = function() {
-      constructRacers();
-      destructSetup();
+      //constructRacers();
+      destructClassName("game_setup");
       playGame();
     };
+
+    var elButtonEnterContestant = document.getElementById("buttonEnterContestant");
+    elButtonEnterContestant.onclick = function() {
+      constructRacer(); // add Racer object, increment nRacers
+      if(nRacers == nMaxRacers) {
+        elButtonEnterContestant.style.display = "none";
+        destructClassName("contestantSelect");
+        destructClassName("setup_image");
+      } else {
+        initInputFormForRacer(nRacers);
+      }
+    }
 
     distance = 80; //getNumber("How many yards is the race?");
     graphical = true; //(prompt("Would you like to see a graphical race?"));
@@ -313,57 +404,104 @@
 
   var current_form;
   var elContestant;
-  var elButton;
+  var elRaceButton;
   var elContestant_images;
   var elForm;
   var elInput;
   var elAnimals;
 
-  /* 
+  // change the display attribute on a class display
+  function classDisplay(sClassName, sSetting) {
+  var display_list = document.getElementsByClassName(sClassName);
+
+  for (var iNode=0; iNode < display_list.length; iNode++) {
+    display_list[iNode].style.display = sSetting;
+    }
+  }
+
+  // change the display attribute on an input class
+  function inputVisibility(sClassName, sSetting) {
+  var display_list = document.getElementsByClassName(sClassName);
+    for (var iNode = 0; iNode < display_list.length; iNode++) {
+      display_list[iNode].style.visibility = sSetting;
+    }
+  }
+
+  /*
    * On mouseover of contestants button, changes the interface to a pop up of different animals to select.
    */
   current_form = "racer0_input";
-  
+
   function initialState() {
 
+    classDisplay("selectSpecies", "block");
+    classDisplay("inputForm", "none");
+    inputVisibility("inputForm", "hidden");
     elContestant = document.getElementById("contestant");
-    elButton = document.getElementById("buttonRace");
-    elButton.style.display = "block";
-    
+    elRaceButton = document.getElementById("buttonRace");
+    elRaceButton.style.display = "block";
+/*
     elContestant.onmouseover = function() {
+*/
+      var sRacerPrefix = "racer" + nRacers;
+
       elContestant_images = document.getElementById("contestant_selection");
       elForm = document.getElementById("form1");
-      elInput = document.getElementById(current_form);
+      elInput = document.getElementById(sRacerPrefix);
       elForm.style.zIndex = "-200";
-      elInput.style.visibility = "hidden";
-      elButton.style.display = "none";
-      elContestant_images.style.display = "block";
+      //elInput.style.visibility = "hidden";
+      //elButton.style.display = "none";
+      //elContestant_images.style.display = "block";
+
+      //CMG:TODO: don't think we need following line because all the setup images
+      // are of selectSpecies class
+      // classDisplay("setup_image", "block");
+  /*
       elAnimals = document.getElementsByClassName("setup_image");
       for (var i = 0; i < animals.length; i++) {
         elAnimals[i].style.display = "block";
       }
+  */
       elContestant.style.backgroundColor = "rgba(255, 0, 0, 0.7)";
-    };
-  }
+    }
 
-
-  /*
-  * Hides pop up animal selection 
+ /*
+  * Hides pop up animal selection
   */
   function switchToForm() {
-    //var elAnimals = document.getElementsByClassName("setup_image");
+    var iSpecies = 0;
+    // CMG:MERGE: not sure if the following line is supposed to be commented out
+    // var elAnimals = document.getElementsByClassName("setup_image");
+
+/*
     for (var i = 0; i < animals.length; i++) {
       elAnimals[i].style.display = "none";
-    
-    elContestant_images = document.getElementById("contestant_selection");
+
+    // var elContestant_images = document.getElementById("contestant_selection");
     elContestant_images.style.display = "none";
     }
-  }
+    */
 
+    classDisplay("selectSpecies", "none");
+
+    var sRacerPrefix = "racer" + iSpecies;
+    var elInputForm = document.getElementById(sRacerPrefix+"_input");
+    elInputForm.style.display = "block";
+    elInputForm.style.visibility = "visible";
+    //inputVisibility(sRacerPrefix+"_input", "block");
+
+    //classDisplay("inputForm", "block");
+    //inputVisibility("inputForm", "block");
+    iCurrentSpecies = iSpecies;
+  }
 
  /*
   * Contains key value pairs to match animal image selection to the specific input form.
   */
+  /*
+  // CMG: TODO: I don't think we should have this table. If an octopus and a fox are racing,
+  //  their information is in racer0 and racer1; there's no implicit association with
+  //  racer2 and racer3.
   var input_lookup = {
     "/images/realrabbit.png": "racer0_input",
     "/images/zebra1.png": "racer1_input",
@@ -371,35 +509,35 @@
     "/images/fox1.png": "racer3_input"
     //"images/pelican.png"
   };
+  */
 
-  
+
  /*
-  * Looks up animal image src in input_lookup to retrieve the specific input form 
+  * Looks up animal image src in input_lookup to retrieve the specific input form
   * and make the form visible on page.
   */
-  function switchInputBox(elSrc) {
+/*
+  function switchInputBox(/*elSrc) {
     for (var src in input_lookup) {
       if (elSrc === src) {
         alert(current_form);
         document.getElementById(current_form).style.display = "none";
         document.getElementById(input_lookup[src]).style.display = "block";
         current_form = input_lookup[src];
-       
       }
     }
-    
+
     initialState();
     //var elContest = document.getElementById("contestant");
     //elContest.innerText = "Next Up"; //TODO: Change to same formatting as #contestant h3
-   
+
   }
-
-
+  */
 
   window.onload = function() {
 
     initialState();
-   
+
     elAnimals = document.getElementsByClassName("setup_image");
     for (var i = 0; i < elAnimals.length; i++) {
       elAnimals[i].onmouseover = function() {this.style.opacity = "0.8";};
@@ -407,44 +545,13 @@
 
     for (var j = 0; j < elAnimals.length; j++) {
       elAnimals[j].onclick = function() {
+        //iCurrentSpecies = j;
         switchToForm();
-        var elPath = this.src;
-        var elSrc = elPath.substr(elPath.lastIndexOf("/images"));
-        switchInputBox(elSrc);
+        // var elPath = this.src;
+        // var elSrc = elPath.substr(elPath.lastIndexOf("/images"));
+        // switchInputBox(elSrc);
       };
     }
 
-    setupGame();
-
-    
-
+    // setupGame();
   };
-
-  
-
-
-
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
