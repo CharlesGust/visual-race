@@ -64,11 +64,12 @@
   }
 
 
-  function Racer(name, speed, focus, species) {
+  function Racer(name, speed, focus, species, sImg) {
     this.name = name;
     this.speed = speed;
     this.focus = focus;
     this.species = species;
+    this.sImg = sImg;
     this.position = 0;
     this.verticalDelta = 0;
     this.dally = 0;
@@ -99,12 +100,7 @@
 
       if( graphical ) {
 
-        var spc = this.species;
-        var szAE = strAnimalElement(spc, "_image");
-        // CMG: TODO: the next line is wrong if two animals of the same type are racing
-        var elS = document.getElementById(szAE);
-
-
+        elS = document.getElementById(this.sImg);
         elS.style.marginLeft = this.position + "%";
         //alert(this.position);
       } else {
@@ -277,6 +273,43 @@
     }
   }
 
+  function generateGameImages(nSpecies, sRacerID) {
+    // we need to copy into racerXimage something that's just like a
+    // <animal>_image (which are the game images). This needs to be a copy
+    // because we could have two pelicans in the race, for instance.
+    var elGameTitle = document.getElementById("game_title");
+    var elGameImages = document.getElementById("game_images");
+    var elCurrLI = elGameImages.firstElementChild;
+
+    while(elCurrLI.firstElementChild.id != animals[nSpecies][ciAnimalsName].toLowerCase()+"_racer") {
+      elCurrLI = elCurrLI.nextElementSibling;
+    }
+
+    //elCurrLI should now point to the game_images version we want to copy
+    var elSourceImage;
+
+    var elDestImage = document.createElement("img");
+    elDestImage.src = elCurrLI.firstElementChild.src;
+    elDestImage.id = sRacerID;
+
+    var elDestImageLI = document.createElement("li");
+    elDestImageLI.appendChild(elDestImage);
+
+    var elDestImageLIUL = document.getElementById("racer_images");
+    if( elDestImageLIUL == null) {
+      // create UL for racer_images
+      elDestImageLIUL = document.createElement("ul");
+      elDestImageLIUL.id = "racer_images";
+      elDestImageLIUL.class = "racerImages";
+      elDestImageLIUL.appendChild(elDestImageLI);
+
+      elGameImages.parentNode.appendChild(elDestImageLIUL);
+    } else {
+      // we have the UL holding at least one LI, append to the end
+      elDestImageLIUL.appendChild(elDestImageLI);
+    }
+  }
+
   function constructRacer() {
     var sRacerPrefix = "racer"+nRacers;
     var elName = document.getElementById(sRacerPrefix+"name");
@@ -298,9 +331,9 @@
     }
 
     var nSpecies = getCurrentSpecies(null);
-    var objRacer = new Racer(sName, nSpeed, nFocus, nSpecies);
+    var objRacer = new Racer(sName, nSpeed, nFocus, nSpecies, sRacerPrefix+"image");
 
-    var elImage = document.getElementById(sRacerPrefix+"image");
+    generateGameImages(nSpecies, sRacerPrefix+"image");
 
     racers[nRacers++] = objRacer;
   }
@@ -415,7 +448,12 @@
     elButtonEnterContestant.onclick = function() {
       constructRacer(); // add Racer object, increment nRacers
       if(nRacers == nMaxRacers) {
+        var elRaceButton = document.getElementById("buttonRace");
+
+        elRaceButton.style.display = "block";
+        elRaceButton.style.visibility = "visible";
         elButtonEnterContestant.style.display = "none";
+
         destructClassName("contestantSelect");
         destructClassName("setup_image");
       }
@@ -468,7 +506,8 @@
     elContestant = document.getElementById("contestant");
     elRaceButton = document.getElementById("buttonRace");
     elEnterContestant = document.getElementById("buttonEnterContestant");
-    elRaceButton.style.display = "none";
+    elRaceButton.style.display = "block";
+    elRaceButton.style.visibility = "visible";
     elContestant.style.display = "block";
     elEnterContestant.style.display = "none";
 /*
@@ -519,6 +558,9 @@
     var elInputForm = document.getElementById(sRacerPrefix+"_input");
     elInputForm.style.display = "block";
     elInputForm.style.visibility = "visible";
+    elRaceButton = document.getElementById("buttonRace");
+    elRaceButton.style.display = "none";
+    elRaceButton.style.visibility = "hidden";
     elEnterContestant.style.display = "block";
     //inputVisibility(sRacerPrefix+"_input", "block");
 
