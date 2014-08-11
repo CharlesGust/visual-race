@@ -286,17 +286,18 @@
       if(nRacers == nMaxRacers) {
         var elRaceButton = document.getElementById("buttonRace");
 
-        elRaceButton.style.display = "block";
-        elRaceButton.style.visibility = "visible";
         elButtonEnterContestant.style.display = "none";
-
-        destructClassName("contestantSelect");
-        destructClassName("setup_image");
+        elRaceButton.style.display = "block";
+        //elRaceButton.style.visibility = "visible";
+        destructClassName("game_setup");
+        var rabbit = document.getElementById("rabbit_image");
+        rabbit.style.display = "none";
+        
       }
       else {
         switchToSpecies();
       }
-    }
+    };
 
     distance = 80; //getNumber("How many yards is the race?");
     graphical = true; //(prompt("Would you like to see a graphical race?"));
