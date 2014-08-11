@@ -4,16 +4,20 @@
   <head>
     <meta charset="UTF-8">
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:700,400' rel='stylesheet' type='text/css'>
     <title>Animal Race Simulation</title>
     <link href="css/motion.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="js/raceTH.js"></script>
   </head>
   <body>
+    <audio id="race_music" preload="none">
+      <source src="audio/race_track.mp3" type="audio/mpeg">
+      <source src="audio/race_track.ogg" type=type="audio/ogg">
+    </audio>
 
     <form id="form1" class="game_setup" onsubmit="return false">
       <div id="contestant" class="selectSpecies">
-      <h1>Species</h1>
-      <h2>Click on an image to put that animal in the race</h2>
+        <h2>Select Animals to Race</h2>
       </div>
       <div id="contestant_selection" class="selectSpecies">
         <ul="first">
@@ -49,11 +53,18 @@
         <li><input id="racer3speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
         <li><input id="racer3focus" type="number" placeholder="What percent of the time is racer focused?"></li>
       </ul>
-
-      <button id="buttonEnterContestant" class="game_setup">Enter Contestant</button>
+      <button id="buttonEnterContestant" class="game_setup">Enter Animal into the Race</button>
       <button id="buttonRace" class="game_setup">Race</button>
     </form>
     <img id="rabbit_image" src="images/realrabbit.png" />
+
+    <h1 id="game_title">Animal Race</h1>
+    <ul id="game_images" class="racerImages">
+      <li><img id="zebra_racer" src="images/Zebra_walks.gif" /></li>
+      <li><img id="octopus_racer" src="images/octopus.gif" /></li>
+      <li><img id="fox_racer" src="images/fox.gif" /></li>
+      <li><img id="pelican_racer" src="images/bird.gif" /></li>
+    </ul>
 
     <!--<img id="turtle_image" src="images/turtle.png" />-->
 

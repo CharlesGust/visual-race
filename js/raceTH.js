@@ -152,6 +152,7 @@
     ["Pelican", "Fly", "stop for fish", 2]
   ];
 
+
   function displayWinner(iRacer) {
     var sWinnerLine = racers[iRacer].name + " wins!!";
     if( graphical) {
@@ -373,7 +374,7 @@
 
    };
 */
-/*
+
     elRacerName.onchange = function() {
 
       var sRacerPrefix = "racer" + iRacer;
@@ -381,6 +382,7 @@
       var rn = elRacerName.value;
       var elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
       var elRacerFocus = document.getElementById(sRacerPrefix+"focus");
+
 
       elRacerSpeed.placeholder =
                               "How fast does " + rn + " " + animals[iAnimal][ciAnimalsMotion].toLowerCase() + " (1-10)?";
@@ -394,9 +396,13 @@
 
     var elButtonRace = document.getElementById("buttonRace");
     elButtonRace.onclick = function() {
+      var audio = document.getElementById("race_music");
       //constructRacers();
       destructClassName("game_setup");
+      audio.play();
       playGame();
+
+
     };
 
     var elButtonEnterContestant = document.getElementById("buttonEnterContestant");
@@ -455,7 +461,10 @@
     inputVisibility("inputForm", "hidden");
     elContestant = document.getElementById("contestant");
     elRaceButton = document.getElementById("buttonRace");
-    elRaceButton.style.display = "block";
+    elEnterContestant = document.getElementById("buttonEnterContestant");
+    elRaceButton.style.display = "none";
+    elContestant.style.display = "block";
+    elEnterContestant.style.display = "none";
 /*
     elContestant.onmouseover = function() {
 */
@@ -504,6 +513,7 @@
     var elInputForm = document.getElementById(sRacerPrefix+"_input");
     elInputForm.style.display = "block";
     elInputForm.style.visibility = "visible";
+    elEnterContestant.style.display = "block";
     //inputVisibility(sRacerPrefix+"_input", "block");
 
     //classDisplay("inputForm", "block");
