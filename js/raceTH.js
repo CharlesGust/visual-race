@@ -363,7 +363,7 @@
 
    };
 */
-
+/*
     elRacerName.onchange = function() {
 
       var sRacerPrefix = "racer" + iRacer;
@@ -377,6 +377,7 @@
       elRacerFocus.placeholder =
                               "What percent of the time does " + rn + " focus?";
     };
+    */
 
     var elButtonRace = document.getElementById("buttonRace");
     elButtonRace.onclick = function() {
@@ -392,8 +393,10 @@
         elButtonEnterContestant.style.display = "none";
         destructClassName("contestantSelect");
         destructClassName("setup_image");
-      } else {
-        initInputFormForRacer(nRacers);
+      }
+      else {
+        //initInputFormForRacer(nRacers);
+        switchToSpecies();
       }
     }
 
@@ -432,7 +435,7 @@
    */
   current_form = "racer0_input";
 
-  function initialState() {
+  function switchToSpecies() {
 
     classDisplay("selectSpecies", "block");
     classDisplay("inputForm", "none");
@@ -536,7 +539,7 @@
 
   window.onload = function() {
 
-    initialState();
+    switchToSpecies();
 
     elAnimals = document.getElementsByClassName("setup_image");
     for (var i = 0; i < elAnimals.length; i++) {
@@ -553,5 +556,5 @@
       };
     }
 
-    // setupGame();
+    setupGame();
   };
