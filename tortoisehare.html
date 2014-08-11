@@ -7,11 +7,10 @@
     <title>Animal Race Simulation</title>
     <link href="css/motion.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="js/raceTH.js"></script>
-
   </head>
   <body>
 
-    <form id="form1" class="game_setup">
+    <form id="form1" class="game_setup" onsubmit="return false">
       <div id="contestant" class="selectSpecies">
       <h1>Species</h1>
       <h2>Click on an image to put that animal in the race</h2>
@@ -50,8 +49,9 @@
         <li><input id="racer3speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
         <li><input id="racer3focus" type="number" placeholder="What percent of the time is racer focused?"></li>
       </ul>
-      <button id="buttonEnterContestant">Enter Contestant</button>
-      <button id="buttonRace">Race</button>
+
+      <button id="buttonEnterContestant" class="game_setup">Enter Contestant</button>
+      <button id="buttonRace" class="game_setup">Race</button>
     </form>
     <img id="rabbit_image" src="images/realrabbit.png" />
 
@@ -62,6 +62,7 @@
     <!-- TODO: have a different setup image from the race image
     <img id="setup_rabbit" src="images/realrabbit.png" class="game_setup" />
     -->
+
   </body>
 
 </html>
