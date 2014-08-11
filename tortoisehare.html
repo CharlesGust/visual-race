@@ -10,11 +10,14 @@
 
   </head>
   <body>
+    <audio id="race_music" preload="none">
+      <source src="audio/race_track.mp3" type="audio/mpeg">
+      <source src="audio/race_track.ogg" type=type="audio/ogg">
+    </audio>
 
     <form id="form1" class="game_setup">
       <div id="contestant" class="selectSpecies">
-      <h1>Species</h1>
-      <h2>Click on an image to put that animal in the race</h2>
+        <h2>Select Animals</h2>
       </div>
       <div id="contestant_selection" class="selectSpecies">
         <ul="first">
@@ -50,7 +53,7 @@
         <li><input id="racer3speed" type="number" placeholder="How fast is the racer (1-10)?"></li>
         <li><input id="racer3focus" type="number" placeholder="What percent of the time is racer focused?"></li>
       </ul>
-      <button id="buttonEnterContestant">Enter Contestant</button>
+      <button id="buttonEnterContestant">Enter Animal into the Race</button> 
       <button id="buttonRace">Race</button>
     </form>
     <img id="rabbit_image" src="images/realrabbit.png" />

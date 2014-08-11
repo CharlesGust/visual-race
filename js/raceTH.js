@@ -380,9 +380,13 @@
 
     var elButtonRace = document.getElementById("buttonRace");
     elButtonRace.onclick = function() {
+      var audio = document.getElementById("race_music");
       //constructRacers();
       destructClassName("game_setup");
+      audio.play();
       playGame();
+
+
     };
 
     var elButtonEnterContestant = document.getElementById("buttonEnterContestant");
@@ -439,7 +443,10 @@
     inputVisibility("inputForm", "hidden");
     elContestant = document.getElementById("contestant");
     elRaceButton = document.getElementById("buttonRace");
-    elRaceButton.style.display = "block";
+    elEnterContestant = document.getElementById("buttonEnterContestant");
+    elRaceButton.style.display = "none";
+    elContestant.style.display = "block";
+    elEnterContestant.style.display = "none";
 /*
     elContestant.onmouseover = function() {
 */
@@ -488,6 +495,7 @@
     var elInputForm = document.getElementById(sRacerPrefix+"_input");
     elInputForm.style.display = "block";
     elInputForm.style.visibility = "visible";
+    elEnterContestant.style.display = "block";
     //inputVisibility(sRacerPrefix+"_input", "block");
 
     //classDisplay("inputForm", "block");
