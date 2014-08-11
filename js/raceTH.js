@@ -12,7 +12,7 @@
 //
 
 /* TODO: fix white space to have global functions start in leftmost column */
-
+//alert("Javascript init");
 
   function yes(theString) {
     return theString[0].toLowerCase() == "y";
@@ -22,6 +22,7 @@
     return parseInt(sbNumber,10);
   }
 
+/*
   function getNumber(promptPhrase) {
       var isNumber = false;
       var userInput;
@@ -43,6 +44,7 @@
 
     return nResult;
   }
+  */
 
   function lineout(phrase) {
     document.write("<p>" + phrase + "</p>");
@@ -261,8 +263,16 @@
   //
   // GetCurrentSpecies either has to access a global variable, or do a search
   // of the DOM to find which animal is selected.
-  function getCurrentSpecies() {
-    return iCurrentSpecies;
+  function getCurrentSpecies(invokingObj) {
+    if(invokingObj == null) {
+      return iCurrentSpecies;
+    }
+    for(var iAnimal = 0; iAnimal < animals.length; iAnimal++) {
+      if (invokingObj.id == animals[iAnimal][ciAnimalsName].toLowerCase()+"_image") {
+        iCurrentSpecies = iAnimal;
+        return iCurrentSpecies;
+      }
+    }
   }
 
   function constructRacer() {
@@ -285,7 +295,7 @@
       return;
     }
 
-    var nSpecies = getCurrentSpecies();
+    var nSpecies = getCurrentSpecies(null);
     var objRacer = new Racer(sName, nSpeed, nFocus, nSpecies);
 
     racers[nRacers++] = objRacer;
@@ -326,7 +336,7 @@
 
 
   function setupGame() {
-    alert("in setupGame");
+    //alert("in setupGame");
     var iAnimal = 0;
     var iRacer = 0;
     //var elRacerSpecies;
@@ -365,11 +375,6 @@
    };
 */
 
-    
-
-
-
-
     elRacerName.onchange = function() {
 
       var sRacerPrefix = "racer" + iRacer;
@@ -384,6 +389,10 @@
       elRacerFocus.placeholder =
                               "What percent of the time does " + rn + " focus?";
     };
+    */
+    function commitContestant() {
+
+    }
 
     var elButtonRace = document.getElementById("buttonRace");
     elButtonRace.onclick = function() {
@@ -403,8 +412,10 @@
         elButtonEnterContestant.style.display = "none";
         destructClassName("contestantSelect");
         destructClassName("setup_image");
-      } else {
-        initInputFormForRacer(nRacers);
+      }
+      else {
+        //initInputFormForRacer(nRacers);
+        switchToSpecies();
       }
     }
 
@@ -443,7 +454,7 @@
    */
   current_form = "racer0_input";
 
-  function initialState() {
+  function switchToSpecies() {
 
     classDisplay("selectSpecies", "block");
     classDisplay("inputForm", "none");
@@ -482,8 +493,8 @@
  /*
   * Hides pop up animal selection
   */
-  function switchToForm() {
-    var iSpecies = 0;
+  function switchToForm(invokingObj) {
+    var iSpecies = getCurrentSpecies(invokingObj);
     // CMG:MERGE: not sure if the following line is supposed to be commented out
     // var elAnimals = document.getElementsByClassName("setup_image");
 
@@ -498,7 +509,7 @@
 
     classDisplay("selectSpecies", "none");
 
-    var sRacerPrefix = "racer" + iSpecies;
+    var sRacerPrefix = "racer" + nRacers;
     var elInputForm = document.getElementById(sRacerPrefix+"_input");
     elInputForm.style.display = "block";
     elInputForm.style.visibility = "visible";
@@ -549,10 +560,17 @@
   }
   */
 
+  // use window.onload
+  // The code that runs here is code that creates the initial view and sets up the dynamic events
+  // If the javascript code is contained in a tag that it modifies, the browser reloads, which means
+  // the javascript runs twice. The way to fix this is supposed to be by putting the javascript code
+  // in the <head> part of the html. However, by that point, we don't have enough of the DOM loaded
+  // to do the code in here. So, doing it "onload" is a way to delay it's execution until the entire
+  // page is loaded
   window.onload = function() {
 
-    initialState();
-    
+    switchToSpecies();
+
     elAnimals = document.getElementsByClassName("setup_image");
     for (var i = 0; i < elAnimals.length; i++) {
       elAnimals[i].onmouseover = function() {this.style.opacity = "0.8";};
@@ -561,12 +579,14 @@
     for (var j = 0; j < elAnimals.length; j++) {
       elAnimals[j].onclick = function() {
         //iCurrentSpecies = j;
-        switchToForm();
+        switchToForm(this);
         // var elPath = this.src;
         // var elSrc = elPath.substr(elPath.lastIndexOf("/images"));
         // switchInputBox(elSrc);
       };
     }
 
-    // setupGame();
+    setupGame();
+
   };
+
