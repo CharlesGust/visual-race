@@ -22,30 +22,6 @@
     return parseInt(sbNumber,10);
   }
 
-/*
-  function getNumber(promptPhrase) {
-      var isNumber = false;
-      var userInput;
-
-      while(! isNumber) {
-        userInput = toNumber(prompt(promptPhrase));
-        isNumber = ! isNaN(userInput);
-      }
-
-      return userInput;
-  }
-
-  function getNumbervRange(promptPhrase, min, max) {
-    var nResult;
-
-    do {
-      nResult = getNumber(promptPhrase);
-    } while( (nResult < min) || (nResult > max));
-
-    return nResult;
-  }
-  */
-
   function lineout(phrase) {
     document.write("<p>" + phrase + "</p>");
   }
@@ -73,14 +49,6 @@
     this.position = 0;
     this.verticalDelta = 0;
     this.dally = 0;
-    //this.image_selector = null;
-
-/*
-    this.setImage = function(elImage) {
-      var elI = elImage;
-      this.image_selector = elI;
-    };
-*/
 
     // Here, move refers to a game move. The animal may or may not change position
     // The move function also reports the result of the game move
@@ -102,7 +70,6 @@
 
         elS = document.getElementById(this.sImg);
         elS.style.marginLeft = this.position + "%";
-        //alert(this.position);
       } else {
         lineout(this.name + " " + sAction + " at " + this.position + " yards.");
       }
@@ -185,26 +152,6 @@
     var iRacers;
     var nWinners = 0;
 
-/*
-    // the pictures for the racers are the pictures of the respective animals
-    for(iRacer = 0; iRacer < nRacers; iRacer++) {
-      var rIr = racers[iRacer];
-      var spc = rIr.species;
-      var szAE = strAnimalElement(spc, "_image");
-      var elS = document.getElementById(szAE);
-
-
-      rIr.setImage(elS);
-      // racers[iRacer].setImage(document.getElementById(strAnimalElement(racers[iRacer].species, "_image")));
-    }
-  */
-
-    //var ti = document.getElementById("turtle_image");
-    //alert(ti.style.marginLeft);
-    //turtle.image(ti);
-    //rabbit.image(document.getElementById("rabbit_image"));
-
-
     do {
       for(iRacers = 0; iRacers < racers.length; iRacers++) {
         racers[iRacers].move();
@@ -222,40 +169,6 @@
       displayWinners();
     }
   }
-
-/*
-  // After the input forms are complete, create a "Racer" object for each one
-  // Also, update the global variable that counts the number of racers
-  function constructRacers() {
-    alert("in constructRacers");
-    var iRacer = 0;
-
-    for(iRacer = 0; iRacer < nMaxRacers; iRacer++) {
-      var sRacerPrefix = "racer"+iRacer;
-      var elName = document.getElementById(sRacerPrefix+"name");
-
-      // TODO: We need to check whether the user ever entered data on the form to
-      // see whether or not this racer "counts". Is the best way to check for that
-      // to check if the length of the name entered is 0?
-      if( elName.textLength > 0) {
-        var sName = elName.value;
-        var nSpeed = toNumber(document.getElementById(sRacerPrefix+"speed").value);
-        var nFocus = toNumber(document.getElementById(sRacerPrefix+"focus").value);
-        var nSpecies = toNumber(document.getElementById(sRacerPrefix+"species").value);
-        var objRacer = new Racer(sName, nSpeed, nFocus, nSpecies);
-
-        // use nRacers with post-increment instead of iRacer just in case code
-        // is later altered to permit an empty form between two filled ones.
-        racers[nRacers++] = objRacer;
-      } else {
-        // assumes the forms are filled sequentially and that there is no need
-        // to check subsequent forms after we find the first empty name.
-        // If that isn't the case, delete the following line to process all
-        iRacer = nMaxRacers;
-      }
-    }
-  }
-*/
 
   var iCurrentSpecies;
   //
@@ -348,85 +261,10 @@
     }
   }
 
-/*
-  // destructClassName() removes all DOM elements of named class
-  function destructIdName(sIdName) {
-    var setup_list = document.getElementByIdentifer(sIdName);
-
-    while(setup_list[0]) {
-      //alert("removing: " + setup_list[0]);
-      setup_list[0].parentNode.removeChild(setup_list[0]);
-    }
-  }
-  */
-
-/*
-  function addRacerSpecies(sRacerPrefix, elRacerName, iAnimal) {
-    alert("addRacerSpecies");
-    var elRacerSpecies = document.createElement(sRacerPrefix + "species");
-    var sNewText = document.createTextNode(iAnimal);
-    elRacerSpecies.appendChild(sNewText);
-    var position = document.getElementById(sRacerPrefix+"_input");
-    position.appendChild(elRacerSpecies);
-  }
-*/
-
-
   function setupGame() {
-    //alert("in setupGame");
     var iAnimal = 0;
     var iRacer = 0;
-    //var elRacerSpecies;
-    //var sAnimalMotion;
 
-/*
-    function initInputFormForRacer(iRacer) {
-        sRacerPrefix = "racer" + iRacer;
-        elRacerName = document.getElementById(sRacerPrefix+"name");
-        elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
-        elRacerFocus = document.getElementById(sRacerPrefix+"focus");
-    }
-
-    initInputFormForRacer(nRacers);
-*/
-
-    // TODO: is there a better way to get species than from user input on a form?
-    // elRacerSpecies = document.getElementById(sRacerPrefix+"species");
-
-
-
-/*
-    TODO: CMG: I commented out this function because a elRacerSpecies listener is only relevant if
-    we are entering a species on a form. Because we now infer the species from which picture was selected,
-    there is no event we can watch to put in these cuter questions.
-    We also don't need the sAnimalMotion string
-
-    sAnimalMotion = animals[elRacerSpecies][ciAnimalsMotion].value;
-
-    elRacerSpecies.onchange = function() {
-
-    elRacerName.placeholder = "This " + animals[iAnimal][ciAnimalsName].toLowerCase() + " needs a suitable name";
-    elRacerSpeed.placeholder = sAnimalMotion +", " + sAnimalMotion + ", " + sAnimalMotion + "...";
-    elRacerFocus.placeholder = animals[iAnimal][ciAnimalsName] + " tend to " + animals[iAnimal][ciAnimalsTendency];
-
-   };
-*/
-/*
-    elRacerName.onchange = function() {
-
-      var sRacerPrefix = "racer" + iRacer;
-      var elRacerName = document.getElementById(sRacerPrefix+"name");
-      var rn = elRacerName.value;
-      var elRacerSpeed = document.getElementById(sRacerPrefix+"speed");
-      var elRacerFocus = document.getElementById(sRacerPrefix+"focus");
-
-
-      elRacerSpeed.placeholder =
-                              "How fast does " + rn + " " + animals[iAnimal][ciAnimalsMotion].toLowerCase() + " (1-10)?";
-      elRacerFocus.placeholder =
-                              "What percent of the time does " + rn + " focus?";
-    };
-*/
     // this function is needed if the UI permits the start race button to be pressed
     // while there is a partially completed racer form.
     function commitContestant() {
@@ -440,8 +278,6 @@
       destructClassName("game_setup");
       audio.play();
       playGame();
-
-
     };
 
     var elButtonEnterContestant = document.getElementById("buttonEnterContestant");
@@ -458,7 +294,6 @@
         destructClassName("setup_image");
       }
       else {
-        //initInputFormForRacer(nRacers);
         switchToSpecies();
       }
     }
@@ -510,28 +345,13 @@
     elRaceButton.style.visibility = "visible";
     elContestant.style.display = "block";
     elEnterContestant.style.display = "none";
-/*
-    elContestant.onmouseover = function() {
-*/
+
       var sRacerPrefix = "racer" + nRacers;
 
       elContestant_images = document.getElementById("contestant_selection");
       elForm = document.getElementById("form1");
       elInput = document.getElementById(sRacerPrefix);
       elForm.style.zIndex = "-200";
-      //elInput.style.visibility = "hidden";
-      //elButton.style.display = "none";
-      //elContestant_images.style.display = "block";
-
-      //CMG:TODO: don't think we need following line because all the setup images
-      // are of selectSpecies class
-      // classDisplay("setup_image", "block");
-  /*
-      elAnimals = document.getElementsByClassName("setup_image");
-      for (var i = 0; i < animals.length; i++) {
-        elAnimals[i].style.display = "block";
-      }
-  */
       elContestant.style.backgroundColor = "rgba(255, 0, 0, 0.7)";
     }
 
@@ -540,17 +360,6 @@
   */
   function switchToForm(invokingObj) {
     var iSpecies = getCurrentSpecies(invokingObj);
-    // CMG:MERGE: not sure if the following line is supposed to be commented out
-    // var elAnimals = document.getElementsByClassName("setup_image");
-
-/*
-    for (var i = 0; i < animals.length; i++) {
-      elAnimals[i].style.display = "none";
-
-    // var elContestant_images = document.getElementById("contestant_selection");
-    elContestant_images.style.display = "none";
-    }
-    */
 
     classDisplay("selectSpecies", "none");
 
@@ -562,51 +371,8 @@
     elRaceButton.style.display = "none";
     elRaceButton.style.visibility = "hidden";
     elEnterContestant.style.display = "block";
-    //inputVisibility(sRacerPrefix+"_input", "block");
-
-    //classDisplay("inputForm", "block");
-    //inputVisibility("inputForm", "block");
     iCurrentSpecies = iSpecies;
   }
-
- /*
-  * Contains key value pairs to match animal image selection to the specific input form.
-  */
-  /*
-  // CMG: TODO: I don't think we should have this table. If an octopus and a fox are racing,
-  //  their information is in racer0 and racer1; there's no implicit association with
-  //  racer2 and racer3.
-  var input_lookup = {
-    "/images/realrabbit.png": "racer0_input",
-    "/images/zebra1.png": "racer1_input",
-    "/images/octopus1.png": "racer2_input",
-    "/images/fox1.png": "racer3_input"
-    //"images/pelican.png"
-  };
-  */
-
-
- /*
-  * Looks up animal image src in input_lookup to retrieve the specific input form
-  * and make the form visible on page.
-  */
-/*
-  function switchInputBox(/*elSrc) {
-    for (var src in input_lookup) {
-      if (elSrc === src) {
-        alert(current_form);
-        document.getElementById(current_form).style.display = "none";
-        document.getElementById(input_lookup[src]).style.display = "block";
-        current_form = input_lookup[src];
-      }
-    }
-
-    initialState();
-    //var elContest = document.getElementById("contestant");
-    //elContest.innerText = "Next Up"; //TODO: Change to same formatting as #contestant h3
-
-  }
-  */
 
   // use window.onload
   // The code that runs here is code that creates the initial view and sets up the dynamic events
@@ -626,11 +392,7 @@
 
     for (var j = 0; j < elAnimals.length; j++) {
       elAnimals[j].onclick = function() {
-        //iCurrentSpecies = j;
         switchToForm(this);
-        // var elPath = this.src;
-        // var elSrc = elPath.substr(elPath.lastIndexOf("/images"));
-        // switchInputBox(elSrc);
       };
     }
 
