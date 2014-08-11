@@ -98,10 +98,12 @@
       }
 
       if( graphical ) {
+
         var spc = this.species;
         var szAE = strAnimalElement(spc, "_image");
         // CMG: TODO: the next line is wrong if two animals of the same type are racing
         var elS = document.getElementById(szAE);
+
 
         elS.style.marginLeft = this.position + "%";
         //alert(this.position);
@@ -298,6 +300,8 @@
     var nSpecies = getCurrentSpecies(null);
     var objRacer = new Racer(sName, nSpeed, nFocus, nSpecies);
 
+    var elImage = document.getElementById(sRacerPrefix+"image");
+
     racers[nRacers++] = objRacer;
   }
 
@@ -374,7 +378,7 @@
 
    };
 */
-
+/*
     elRacerName.onchange = function() {
 
       var sRacerPrefix = "racer" + iRacer;
@@ -389,7 +393,9 @@
       elRacerFocus.placeholder =
                               "What percent of the time does " + rn + " focus?";
     };
-    */
+*/
+    // this function is needed if the UI permits the start race button to be pressed
+    // while there is a partially completed racer form.
     function commitContestant() {
 
     }
