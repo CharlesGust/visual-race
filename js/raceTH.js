@@ -205,6 +205,7 @@
   }
 
   function constructRacers() {
+    alert("in constructRacers");
     var iRacer = 0;
 
     // alert("constructRacers");
@@ -264,6 +265,7 @@
 */
 
   function setupGame() {
+    alert("in setupGame");
     var iAnimal = 0;
     var iRacer = 0;
     var elRacerName;
@@ -295,8 +297,6 @@
 
    };
 
-
-
     elRacerName.onchange = function() {
       var rn = elRacerName.value;
       elRacerSpeed.placeholder =
@@ -314,33 +314,61 @@
 
     distance = 80; //getNumber("How many yards is the race?");
     graphical = true; //(prompt("Would you like to see a graphical race?"));
-
   }
 
+
+  var current_form;
+  var elContestant;
+  var elButton;
+  var elContestant_images;
+  var elForm;
+  var elInput;
+  var elAnimals;
 
   /* 
    * On mouseover of contestants button, changes the interface to a pop up of different animals to select.
    */
-  function switchToContestants() {
-    alert("in switchToContestants");
-    var elContestant = document.getElementById("contestant");
+  current_form = "racer0_input";
+  
+  function initialState() {
+
+    elContestant = document.getElementById("contestant");
+    elButton = document.getElementById("buttonRace");
+    elButton.style.display = "block";
+    
     elContestant.onmouseover = function() {
-      var elContestant_images = document.getElementById("contestant_selection");
-      var elForm = document.getElementById("form1");
-      var elInput = document.getElementById("racer0_input");
-      var elRabbit = document.getElementById("rabbit_image");
-      var elButton = document.getElementById("buttonRace");
+      elContestant_images = document.getElementById("contestant_selection");
+      elForm = document.getElementById("form1");
+      elInput = document.getElementById(current_form);
       elForm.style.zIndex = "-200";
       elInput.style.visibility = "hidden";
       elButton.style.display = "none";
       elContestant_images.style.display = "block";
+      elAnimals = document.getElementsByClassName("setup_image");
+      for (var i = 0; i < animals.length; i++) {
+        elAnimals[i].style.display = "block";
+      }
       elContestant.style.backgroundColor = "rgba(255, 0, 0, 0.7)";
     };
   }
 
 
+  /*
+  * Hides pop up animal selection 
+  */
+  function switchToForm() {
+    //var elAnimals = document.getElementsByClassName("setup_image");
+    for (var i = 0; i < animals.length; i++) {
+      elAnimals[i].style.display = "none";
+    
+    elContestant_images = document.getElementById("contestant_selection");
+    elContestant_images.style.display = "none";
+    }
+  }
+
+
  /*
-  * Contains key value pairs to match animal image selection to the specific input box.
+  * Contains key value pairs to match animal image selection to the specific input form.
   */
   var input_lookup = {
     "/images/realrabbit.png": "racer0_input",
@@ -358,35 +386,27 @@
   function switchInputBox(elSrc) {
     for (var src in input_lookup) {
       if (elSrc === src) {
+        alert(current_form);
+        document.getElementById(current_form).style.display = "none";
         document.getElementById(input_lookup[src]).style.display = "block";
-        racer0_input.style.display = "none";
+        current_form = input_lookup[src];
+       
       }
     }
+    
+    initialState();
     //var elContest = document.getElementById("contestant");
     //elContest.innerText = "Next Up"; //TODO: Change to same formatting as #contestant h3
-    switchToContestants();
-  }
-
-
- /*
-  * Hides pop up animal selection 
-  */
-  function switchToForm() {
-    var elAnimals = document.getElementsByClassName("setup_image");
-    for (var i = 0; i < animals.length; i++) {
-      elAnimals[i].style.display = "none";
-    
-    var elContestant_images = document.getElementById("contestant_selection");
-    elContestant_images.style.display = "none";
-    }
-  }
-
-
-  window.onload = function () {
-
-    switchToContestants();
    
-    var elAnimals = document.getElementsByClassName("setup_image");
+  }
+
+
+
+  window.onload = function() {
+
+    initialState();
+   
+    elAnimals = document.getElementsByClassName("setup_image");
     for (var i = 0; i < elAnimals.length; i++) {
       elAnimals[i].onmouseover = function() {this.style.opacity = "0.8";};
     }
@@ -401,7 +421,9 @@
     }
 
     setupGame();
+
     
+
   };
 
   
