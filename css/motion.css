@@ -145,7 +145,7 @@ input {
 }
 
 
-#buttonRace, #buttonEnterContestant {
+#buttonEnterContestant {
   font-size: 1.2em;
   color: #383838;
   width: 50%;
@@ -156,6 +156,21 @@ input {
   background-color: #00f3ff;
   border: 0;
   font-family: 'Lato', sans-serif;
+}
+
+#buttonRace {
+  font-size: 1.2em;
+  color: white;
+  width: 15%;
+  margin-top: -60px;
+  margin-right: 3%;
+  float: right;
+  display: block;
+  height: 40px;
+  background-color: red;
+  border: 0;
+  font-family: 'Lato', sans-serif;
+
 }
 
 #buttonRace a {
@@ -210,8 +225,8 @@ input {
 }
 
 #fox_racer {
-  height: 70px;
-  width: 70px;
+  height: 30px;
+  width: 30px;
 }
 
 

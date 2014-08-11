@@ -276,6 +276,8 @@
       var audio = document.getElementById("race_music");
       //constructRacers();
       destructClassName("game_setup");
+      var heading = document.getElementById("game_title");
+      heading.style.display = "block";
       audio.play();
       playGame();
     };
@@ -286,12 +288,16 @@
       if(nRacers == nMaxRacers) {
         var elRaceButton = document.getElementById("buttonRace");
 
+        
         elButtonEnterContestant.style.display = "none";
         elRaceButton.style.display = "block";
         //elRaceButton.style.visibility = "visible";
+        
         destructClassName("game_setup");
-        var rabbit = document.getElementById("rabbit_image");
-        rabbit.style.display = "none";
+        var heading = document.getElementById("game_title");
+        heading.style.display = "block";
+
+        
         
       }
       else {

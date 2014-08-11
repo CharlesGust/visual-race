@@ -15,7 +15,9 @@
       <source src="audio/race_track.ogg" type=type="audio/ogg">
     </audio>
 
+    <button id="buttonRace">Race</button>
     <form id="form1" class="game_setup" onsubmit="return false">
+
       <div id="contestant" class="selectSpecies">
         <h2>Select Animals to Race</h2>
       </div>
@@ -54,11 +56,11 @@
         <li><input id="racer3focus" type="number" placeholder="What percent of the time is racer focused?"></li>
       </ul>
       <button id="buttonEnterContestant" class="game_setup">Enter Animal into the Race</button>
-      <button id="buttonRace" class="setup_image">Race</button>
+      
     </form>
-    <img id="rabbit_image" src="images/realrabbit.png" />
+    <img id="rabbit_image" class="game_setup" src="images/realrabbit.png" />
 
-    <h1 id="game_title">Animal Race</h1>
+    <h1 id="game_title" class="racer_images">Animal Race</h1>
     <ul id="game_images" class="racerImages">
       <li><img id="zebra_racer" src="images/Zebra_walks.gif" /></li>
       <li><img id="octopus_racer" src="images/octopus.gif" /></li>
